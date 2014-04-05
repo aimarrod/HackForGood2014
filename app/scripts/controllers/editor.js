@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('hackForGood2014App')
-  .controller('EditorCtrl', function ($scope, $modal, leafletData) { // Use route/track/jinkana resource or whatever
+  .controller('EditorCtrl', function ($scope, $modal, leafletData, Route) { // Use route/track/jinkana resource or whatever
         $scope.layers = {
             baselayers: {
                 osm: {
@@ -73,7 +73,15 @@ angular.module('hackForGood2014App')
                         feature.properties = points[i].properties;
                         geojson.features.push(feature);
                     }
-                    console.log(geojson);
+                    Route.save(geojson).$promise.then(
+                        function success(data){
+                            console.log("EI");
+                            console.log(data);
+                        },
+                        function error(error){
+                            console.log(error);
+                        }
+                    );
                 });
             };
         });
