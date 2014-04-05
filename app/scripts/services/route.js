@@ -24,6 +24,13 @@ angular.module('hackForGood2014App')
       },
       unsubscribe: {
         method: 'DELETE'
+      },
+      nearby: {
+        method: 'GET',
+        params: {
+          id: 'nearby'
+        },
+        isArray: true
       }
 	 });
   });

@@ -41,5 +41,5 @@ angular.module('hackForGood2014App')
           $scope.routes.splice($scope.routes.indexOf(route),1);
         }
       );
-    }
+    };
   });

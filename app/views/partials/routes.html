@@ -20,7 +20,9 @@
 	    		<p>{{route.description}}</p>
 	    	</div>
 	    	<div class="col-md-3">
-	    		<button class="btn btn-primary" ng-click="subscribe(route)"> Apuntarse! </button>
+	    		<button class="btn btn-primary" ng-hide="route.subscribed" ng-click="subscribe(route)"> Apuntarse! </button>
+          <button class="btn btn-danger" ng-show="route.subscribed" ng-click="unsubscribe(route)"> Eliminar </button>
+
     		</div>
     	</div>
     </div>

@@ -90,6 +90,11 @@ angular.module('hackForGood2014App')
                     );
                 });
             };
+
+            map.locate();
+            map.on('locationfound', function(data){
+                map.fitBounds(data.bounds);
+            });
         });
   });
 
