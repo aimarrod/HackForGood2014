@@ -1,58 +1,89 @@
-'use strict';
 
-angular.module('hackForGood2014App', [
+var app = angular.module('hackForGood2014App', [
   'ngCookies',
   'ngResource',
   'ngSanitize',
-  'ngRoute'
-])
-  .config(function ($routeProvider, $locationProvider, $httpProvider) {
-    $routeProvider
-      .when('/', {
-        templateUrl: 'partials/main',
-        controller: 'MainCtrl'
-      })
-      .when('/login', {
-        templateUrl: 'partials/login',
-        controller: 'LoginCtrl'
-      })
-      .when('/signup', {
-        templateUrl: 'partials/signup',
-        controller: 'SignupCtrl'
-      })
-      .when('/settings', {
-        templateUrl: 'partials/settings',
-        controller: 'SettingsCtrl',
-        authenticate: true
-      })
-      .otherwise({
-        redirectTo: '/'
-      });
-      
-    $locationProvider.html5Mode(true);
-      
-    // Intercept 401s and redirect you to login
-    $httpProvider.interceptors.push(['$q', '$location', function($q, $location) {
-      return {
-        'responseError': function(response) {
-          if(response.status === 401) {
-            $location.path('/login');
-            return $q.reject(response);
-          }
-          else {
-            return $q.reject(response);
-          }
-        }
-      };
-    }]);
-  })
-  .run(function ($rootScope, $location, Auth) {
+  'ui.bootstrap',
+  'ui.router',
+  'leaflet-directive'
+]);
 
-    // Redirect to login if route requires auth and you're not logged in
-    $rootScope.$on('$routeChangeStart', function (event, next) {
-      
-      if (next.authenticate && !Auth.isLoggedIn()) {
-        $location.path('/login');
-      }
+app.config(function ($stateProvider, $urlRouterProvider) {
+    
+    $stateProvider.state('home', {
+      url: '/',
+      templateUrl: 'partials/main.html',
+      controller: 'MainCtrl'
+    })
+    
+    .state('signup', {
+      url: '/signup',
+      templateUrl: 'partials/signup.html',
+      controller: 'SignupCtrl'  
+    })
+
+    .state('editor', {
+      url: '/editor',
+      templateUrl: 'partials/editor.html',
+      controller: 'EditorCtrl'  
+    })
+
+    .state('routes', {
+      url: '/routes',
+      templateUrl: 'partials/routes.html',
+      controller: 'RoutesCtrl'  
+    })
+
+    .state('myroutes', {
+      url: '/myroutes',
+      templateUrl: 'partials/myroutes.html',
+      controller: 'MyRoutesCtrl'  
+    })
+
+    .state('myroutes.created', {
+      url: '/created',
+      templateUrl: 'partials/mycreated.html',
+      controller: 'MyCreatedRoutesCtrl'  
+    })
+
+    .state('myroutes.subscribed', {
+      url: '/subscribed',
+      templateUrl: 'partials/mysubscribed.html',
+      controller: 'MySubscribedRoutesCtrl'  
     });
-  });
+
+
+    $urlRouterProvider.otherwise('/');
+});
+
+
+app.run( function ($rootScope, $location, $modal, $state, Auth) {
+
+    var loginRequired = ['settings', 'upload', 'editor'];
+
+    $rootScope.$on( "$stateChangeStart", function(event, next, current) {
+        if(loginRequired.indexOf(next.name) > -1 && !Auth.isLoggedIn()){ 
+          event.preventDefault();
+
+          var modalInstance = $modal.open({
+            templateUrl: 'partials/login.html',
+            controller: 'LoginCtrl',
+          });
+
+          modalInstance.result.then(function (selectedItem) {
+            $state.go(next.name);
+          }, function () {
+            if(!current.name)
+              $state.go('home');
+          });
+        }
+
+        if(Auth.isLoggedIn() && next.name=="signup"){
+          event.preventDefault();
+          $state.go('home');
+        }
+    });
+
+
+
+});

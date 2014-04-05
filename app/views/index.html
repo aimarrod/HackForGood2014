@@ -13,7 +13,11 @@
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(app) styles/vendor.css -->
     <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/leaflet-dist/leaflet.css" />
+    <link rel="stylesheet" href="bower_components/components-font-awesome/css/font-awesome.css" />
     <!-- endbower -->
+    <link rel="stylesheet" href="plugins/leaflet-sidebar/L.Control.Sidebar.css"></script>
+    <link rel="stylesheet" href="plugins/leaflet.draw/leaflet.draw.css"></script>
     <!-- endbuild -->
     <!-- build:css({.tmp,app}) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
@@ -24,9 +28,9 @@
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
-    <!-- Add your site or application content here -->
-    <div class="container" ng-view=""></div>
+  
 
+    <div class="container" ui-view=""></div>
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
      <script>
        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -51,7 +55,19 @@
     <script src="bower_components/angular-cookies/angular-cookies.js"></script>
     <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/leaflet-dist/leaflet.js"></script>
+    <script src="bower_components/angular-leaflet-directive/dist/angular-leaflet-directive.js"></script>
+    <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <!-- endbower -->
+    <script src="plugins/leaflet-sidebar/L.Control.Sidebar.js"></script>
+    <script src="plugins/leaflet-sidebar/L.Control.Sidebar.Button.js"></script>
+    <script src="plugins/spin/spin.min.js"></script>
+    <script src="plugins/spin/leaflet.spin.js"></script>
+    <script src="plugins/leaflet.draw/leaflet.draw-src.js"></script>
+    <script src="plugins/leaflet.draw/leaflet.draw.button.js"></script>
+    <script src="plugins/leaflet-editable-polyline/leaflet-editable-polyline.js"></script>
+    <script src="plugins/editor/leaflet.editor.panel.js"></script>
     <!-- endbuild -->
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
@@ -60,7 +76,9 @@
         <script src="scripts/controllers/navbar.js"></script>
         <script src="scripts/controllers/login.js"></script>
         <script src="scripts/controllers/signup.js"></script>
-        <script src="scripts/controllers/settings.js"></script>
+        <script src="scripts/controllers/editor.js"></script>
+        <script src="scripts/controllers/routes.js"></script>
+        <script src="scripts/controllers/myroutes.js"></script>
         <script src="scripts/services/auth.js"></script>
         <script src="scripts/services/session.js"></script>
         <script src="scripts/services/user.js"></script>
