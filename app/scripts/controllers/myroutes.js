@@ -15,29 +15,18 @@ angular.module('hackForGood2014App')
     });
 
 angular.module('hackForGood2014App')
-  .controller('MyCreatedRoutesCtrl', function ($scope, $http) {
-    $scope.routes = [{
-      name: 'Ruta de prueba',
-      description: 'Descripcion muy larga de todo este tema, no me voy a poner a copiar un lorem ipsum ahora.',
-      id: '1122312425253',
-      author: {
-        name: 'Administrador',
-        email: 'admin@hackforgood.com'
-      }
-     }];
-    //Download
+  .controller('MyCreatedRoutesCtrl', function ($scope, Route) {
+    Route.owned().$promise.then(
+      function success(data){
+        $scope.routes = data;
+      });
   });
 
 angular.module('hackForGood2014App')
   .controller('MySubscribedRoutesCtrl', function ($scope, $http) {
-    $scope.routes = [{
-      name: 'Ruta de prueba',
-      description: 'Descripcion muy larga de todo este tema, no me voy a poner a copiar un lorem ipsum ahora.',
-      id: '1122312425253',
-      author: {
-        name: 'Administrador',
-        email: 'admin@hackforgood.com'
-      }
-     }];
+    Route.subscribed().$promise.then(
+      function success(data){
+        $scope.routes = data;
+      });
     //Download
   });
