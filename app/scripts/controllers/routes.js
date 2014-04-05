@@ -6,13 +6,6 @@ angular.module('hackForGood2014App')
      Route.query().$promise.then(function sucess(data){
         for(var i = 0, len = data.length; i < len; i++){
             $scope.routes.push(data[i]);
-            if(Auth.isLoggedIn()){
-                // FIX THIS
-                var user = Auth.currentUser();
-                console.log($.inArray(user.name, data[i].assigned_routes));
-                if($.inArray(user.name, data[i].assigned_routes))
-                    data[i].subscribed = true;
-            }
         }
      });
 

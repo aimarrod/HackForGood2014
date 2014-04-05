@@ -16,9 +16,14 @@
       <i class="icon fa fa-frown-o"></i>
       No hay ningun punto cerca de tu posicion.
     </p>
-    <p ng-show="near">
-
-    </p>
+    <div ng-show="near && !complete">
+      <p> {{near.question.question}} </p>
+      <input type="text" class="form-control" ng-model="respuesta" placeholder="Respuesta">
+      <button class="btn btn-primary" ng-click="submit()">Respuesta!</button>
+    </div>
+    <div ng-show="complete">
+      <p> Enhorabuena </p>
+    </div>
   </div>
 
   <leaflet height="400px"></leaflet>

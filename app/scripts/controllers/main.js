@@ -5,13 +5,9 @@ angular.module('hackForGood2014App')
 
   	leafletData.getMap().then(function (map) {
 
-      Route.nearby().$promise.then(
-        function success(data){
-          console.log(data);
-        }, function error(err){
-          console.log(err);
-        }
-      );
+      $scope.submit = function(){
+        $scope.complete = true;
+      }
 
     	$scope.getLocation = function(){
     		if (navigator.geolocation){
@@ -25,6 +21,19 @@ angular.module('hackForGood2014App')
         if(!$scope.currentPosition){
           $scope.currentPosition = L.marker([0,0]);
           map.addLayer($scope.currentPosition);
+          Route.nearby().$promise.then(
+            function success(states){
+              for(var i = 0, len = states.length; i < len; i++){
+                var ll = L.latLng([states[i].point.coordinates[1], states[i].point.coordinates[0]]);
+                if(ll.distanceTo($scope.currentPosition.getLatLng()) < 50){
+                  $scope.near = states[i];
+                  break;
+                }
+              }
+            }, function error(err){
+              console.log(err);
+            }
+        );
         }
 
     		$scope.currentPosition.setLatLng(L.latLng(position.coords.latitude, position.coords.longitude));
