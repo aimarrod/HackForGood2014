@@ -1,0 +1,10 @@
+<ul class="list-group col-md-3">
+    <a ng-repeat="route in routes" class="list-group-item" ng-click="load(route)">
+        <h3 class="panel-title"> {{ route.name }} </h3>
+    </a>
+</ul>
+
+<div class="col-md-9">
+    <leaflet height="300px" width="100%"></leaflet>
+    <p>{{current.data.properties.description}}</p>
+</div>
