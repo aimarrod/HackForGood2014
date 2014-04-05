@@ -10,6 +10,10 @@ angular.module('hackForGood2014App')
 
 
      $scope.subscribe = function(route){
-     	//Suscribirse a la ruta
+     	Route.subscribe({id: route._id}).$promise.then(
+            function success(data){
+                console.log(data);
+            }
+        );
      };
   });

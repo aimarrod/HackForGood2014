@@ -4,11 +4,7 @@ angular.module('hackForGood2014App')
   .factory('Route', function ($resource) {
     return $resource('/api/routes/:id', {
       id: '@id'
-    }, { //parameters default
-      update: {
-        method: 'PUT',
-        params: {}
-      },
+    	}, {
       owned: {
         method: 'GET',
         params: {
@@ -22,6 +18,12 @@ angular.module('hackForGood2014App')
           id:'subscribed'
         },
         isArray: true
+      },
+      subscribe: {
+        method: 'POST'
+      },
+      unsubscribe: {
+        method: 'DELETE'
       }
-	  });
+	 });
   });

@@ -20,13 +20,26 @@ angular.module('hackForGood2014App')
       function success(data){
         $scope.routes = data;
       });
+
+    $scope.show = function(route){
+      $scope.geojson = {
+        data: route.route
+      }
+    }
   });
 
 angular.module('hackForGood2014App')
-  .controller('MySubscribedRoutesCtrl', function ($scope, $http) {
+  .controller('MySubscribedRoutesCtrl', function ($scope, Route) {
     Route.subscribed().$promise.then(
       function success(data){
         $scope.routes = data;
       });
-    //Download
+
+    $scope.unsubscribe = function(route){
+      Route.unsubscribe({id: route._id}).$promise.then(
+        function success(data){
+          $scope.routes.splice($scope.routes.indexOf(route),1);
+        }
+      );
+    }
   });

@@ -1,27 +1,27 @@
 'use strict';
 
 angular.module('hackForGood2014App')
-  .controller('MainCtrl', function ($scope, $http) {
+  .controller('MainCtrl', function ($scope, $http, leafletData) {
 
-  	$scope.markers = {};
+  	leafletData.getMap().then(function (map) {
 
-  	$scope.getLocation = function(){
-  		if (navigator.geolocation){
-    		navigator.geolocation.getCurrentPosition(getPos);
-    	} else {
-    		$scope.$noNavigation = true;
+    	$scope.getLocation = function(){
+    		if (navigator.geolocation){
+      		navigator.geolocation.getCurrentPosition(getPos);
+      	} else {
+      		$scope.$noNavigation = true;
+      	}
+    	};
+  
+    	function getPos(position){
+        if(!$scope.currentPosition){
+          $scope.currentPosition = L.marker(0,0);
+          map.addLayer($scope.currentPosition);
+        }
+
+    		$scope.currentPosition.setLatLng(new L.LatLng(position.coords.latitude, position.coords.longitude));
     	}
-  	};
-
-  	function getPos(position){
-  		console.log(position.coords);
-  		$scope.markers.center = {
-  			lat: position.coords.latitude,
-  			lon: position.coords.longitude,
-  			message: 'Estas aqui',
-  		}
-  	}
-
-
-  	$scope.getLocation();
+  
+    	$scope.getLocation();
+    });
   });
