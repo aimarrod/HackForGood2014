@@ -22,12 +22,13 @@ var db = mongoose.connect(config.mongo.uri, config.mongo.options);
 var modelsPath = path.join(__dirname, 'lib/models');
 fs.readdirSync(modelsPath).forEach(function (file) {
   if (/(.*)\.(js$|coffee$)/.test(file)) {
+  	console.log(file);
     require(modelsPath + '/' + file);
   }
 });
 
 // Populate empty DB with sample data
-require('./lib/config/dummydata');
+//require('./lib/config/dummydata');
   
 // Passport Configuration
 var passport = require('./lib/config/passport');
