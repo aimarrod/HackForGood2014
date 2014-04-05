@@ -15,7 +15,7 @@ angular.module('hackForGood2014App')
     });
 
 angular.module('hackForGood2014App')
-  .controller('MyCreatedRoutesCtrl', function ($scope, $location, $modal, $state, Auth) {
+  .controller('MyCreatedRoutesCtrl', function ($scope, $http) {
     $scope.routes = [{
       name: 'Ruta de prueba',
       description: 'Descripcion muy larga de todo este tema, no me voy a poner a copiar un lorem ipsum ahora.',
@@ -29,7 +29,7 @@ angular.module('hackForGood2014App')
   });
 
 angular.module('hackForGood2014App')
-  .controller('MySubscribedRoutesCtrl', function ($scope, $location, $modal, $state, Auth) {
+  .controller('MySubscribedRoutesCtrl', function ($scope, $http) {
     $scope.routes = [{
       name: 'Ruta de prueba',
       description: 'Descripcion muy larga de todo este tema, no me voy a poner a copiar un lorem ipsum ahora.',

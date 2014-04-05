@@ -79,7 +79,10 @@ angular.module('hackForGood2014App')
                     Route.save(geojson).$promise.then(
                         function success(data){
                             drawLayer.clearLayers();
-                            $scope.route = {}
+                            $scope.route = { 
+                                points:[], 
+                                properties:{}, 
+                            };
                         },
                         function error(error){
                             $scope.route.$error = error;
