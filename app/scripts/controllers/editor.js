@@ -14,7 +14,7 @@ angular.module('hackForGood2014App')
 
         $scope.route = { 
             points:[], 
-            properties:{} 
+            properties:{}, 
         };
 
         leafletData.getMap().then(function (map) {
@@ -54,7 +54,10 @@ angular.module('hackForGood2014App')
             };
 
             $scope.submit = function(e){
-                if($scope.route.points.length == 0) return;
+                if($scope.route.points.length == 0){
+                    $scope.route.$error = "No hay puntos en la ruta";
+                    return;
+                }
 
                 var modalInstance = $modal.open({
                     templateUrl: 'partials/routemodal.html',
@@ -75,11 +78,11 @@ angular.module('hackForGood2014App')
                     }
                     Route.save(geojson).$promise.then(
                         function success(data){
-                            console.log("EI");
-                            console.log(data);
+                            drawLayer.clearLayers();
+                            $scope.route = {}
                         },
                         function error(error){
-                            console.log(error);
+                            $scope.route.$error = error;
                         }
                     );
                 });
@@ -120,7 +123,7 @@ angular.module('hackForGood2014App')
             if(isValid()){
                 $modalInstance.close($scope.route);
             } else {
-                $scope.point.$error = "Es necesario un titulo.";
+                $scope.route.$error = "Es necesario un titulo.";
             }
         };
 
